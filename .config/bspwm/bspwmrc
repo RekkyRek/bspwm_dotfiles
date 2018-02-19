@@ -1,0 +1,59 @@
+#! /bin/sh
+
+###############
+## autostart ##
+###############
+
+## sometimes sxhkd doesn't obey the reload command
+## so kill him, and show him who is the boss
+pkill sxhkd
+sxhkd &
+
+## Xdefaults is fucked for some reason
+xrdb -merge ~/.Xresources &
+
+# just in case you need lemonbar
+#~/.config/bspwm/lemonbar &
+
+## shitty voip, nice chat :)
+discord &
+
+## very nice music streaming platform
+spotify &
+
+## best browser lol
+firefox &
+
+## fix java being a bitch
+wmname LG3D &
+
+## reload the xsettingsd, a minimal x settings daemon
+pkill xfsettingsd
+xfsettingsd &
+
+## set the wallpaper
+feh --bg-fill ~/.config/bspwm/wallpaper.jpg
+
+## reload compton
+pkill compton
+compton -b &
+
+## start polybar, the best invention in the ricing world
+pkill polybar
+( sleep 2 ; polybar top ) &
+
+bspc monitor DP-2 -d 1 2 3 4 5 6 7 8
+bspc monitor HDMI-0 -d 10
+
+bspc config focus_follows_pointer   true
+
+bspc config border_width            0
+bspc config window_gap              12
+
+bspc config split_ratio             0.50
+bspc config borderless_monocle      true
+bspc config gapless_monocle         true
+
+bspc rule -a Discord desktop='^10'
+bspc rule -a Spotify desktop='^8'
+bspc rule -a rekui state=floating
